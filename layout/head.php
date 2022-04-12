@@ -26,6 +26,16 @@
     'assets/css/nucleo-icons.css',
     'assets/css/nucleo-svg.css',
     'assets/css/soft-ui-dashboard.min3447.css?v=1.0.5',
+    'assets/css/fontawesome.css',
+    'assets/css/icofont.css',
+    'assets/css/themify.css',
+    'assets/css/flag-icon.css',
+    'assets/css/feather-icon.css',
+    'assets/css/datatables.css',
+    'assets/css/animate.css',
+    'assets/css/chartist.css',
+    'assets/css/owlcarousel.css',
+    'assets/css/prism.css',
   );
   foreach ($css as $key => $value) { ?>
     <link href="<?= $value ?>" rel="stylesheet"/>
