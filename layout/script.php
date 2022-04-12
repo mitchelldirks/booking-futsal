@@ -1,27 +1,19 @@
 <?php 
-$js = array(
-  'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js',
-  'assets/js/core/popper.min.js',
-  'assets/js/core/bootstrap.min.js',
-  'assets/js/plugins/perfect-scrollbar.min.js',
-  'assets/js/plugins/smooth-scrollbar.min.js',
-  'assets/js/soft-ui-dashboard.min3447.js?v=1.0.5',
-  'https://cdn.jsdelivr.net/npm/sweetalert2@11',
-);
+
 foreach ($js as $key => $value) { ?>
   <script src="<?= $value ?>"></script>
   <?php 
 }
 ?>
-
 <script>
-  var win = navigator.platform.indexOf('Win') > -1;
-  if (win && document.querySelector('#sidenav-scrollbar')) {
-    var options = {
-      damping: '0.5'
-    }
-    Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-  }
+  // var win = navigator.platform.indexOf('Win') > -1;
+  // if (win && document.querySelector('#sidenav-scrollbar')) {
+  //   var options = {
+  //     damping: '0.5'
+  //   }
+  //   Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+  // }
+  $('[data-toggle="tooltip"]').tooltip()
 </script>
 <script type="text/javascript">
   function logout(){
@@ -37,6 +29,22 @@ foreach ($js as $key => $value) { ?>
     }).then((result) => {
       if (result.isConfirmed) {
         window.location.href = '?logout'
+      }
+    })
+  }
+  function swal_delete(url){
+    Swal.fire({
+      title: 'Hapus data?',
+      text: "Data yang dihapus akan hilang secara permanen",
+      icon: 'danger',
+      showCancelButton: true,
+      confirmButtonColor:'#e90607',
+      cancelButtonColor: '#ccc',
+      confirmButtonText: 'Hapus',
+      cancelButtonText:  'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = url
       }
     })
   }

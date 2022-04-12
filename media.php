@@ -1,4 +1,5 @@
 <?php 
+include 'config/config.php';
 include 'config/koneksi.php';
 include 'config/function.php';
 if (isset($_GET['logout']) || !isset($_SESSION['id'])) {
@@ -22,7 +23,6 @@ $aksi="module/".$_GET['module']."/action.php";
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <?php include 'layout/header.php'; ?>
     <div class="container-fluid py-4">
-      <?php //include 'content.php'; ?>
       <?php
       $page = isset($_GET['module']) ? $_GET['module'] : 'dashboard.php';
       if (isset($_GET['module'])) {

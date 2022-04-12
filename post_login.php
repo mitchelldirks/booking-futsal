@@ -24,7 +24,7 @@ if ($row > 0) {
 	// 	exit;
 	// }
 	$_SESSION = $data;
-	if (!empty($_POST["rememberme"])) {
+	if (!empty($_POST["rememberMe"])) {
 		setcookie("username", $_POST['username']);
 		setcookie("password", $_POST['password']);
 	}

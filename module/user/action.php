@@ -53,7 +53,6 @@ if($act == 'create'){
     header('Location: ../../media.php?module='.$module);
 }else if($act == 'approve'){
     $sql="UPDATE ".$table." SET 
-    is_approve      = '1',
     updated_by      = '$user',
     updated_at      = '$now'
     where id = '".$_GET['id']."'";
@@ -65,7 +64,6 @@ if($act == 'create'){
 }else if($act == 'decline'){
     $reason = htmlspecialchars(rawurldecode($_GET['reason']));
     $sql="UPDATE ".$table." SET 
-    is_approve      = '0', 
     decline_reason  = '".$reason."',
     updated_by      = '$user',
     updated_at      = '$now'

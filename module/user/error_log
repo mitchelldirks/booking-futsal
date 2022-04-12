@@ -1,2 +1,0 @@
-[06-Feb-2022 22:33:42 Asia/Jakarta] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/monb9823/public_html/brainy/module/users/action.php on line 74
-[06-Feb-2022 22:40:56 Asia/Jakarta] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/monb9823/public_html/brainy/module/users/action.php on line 74
