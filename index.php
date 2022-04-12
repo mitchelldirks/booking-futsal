@@ -96,7 +96,10 @@ include 'config/function.php';
                 <?php 
                 if (isset($_SESSION['flash'])): ?>
                   <div class="<?php echo $_SESSION['flash']['class']; ?> mt-3 mb-3 alert-dismissible fade show"> 
-                    <i class="<?php echo $_SESSION['flash']['icon'] ?>"></i> <span class="text-white"><?php echo $_SESSION['flash']['label']; ?></span>
+                    <span class="text-white">
+                      <i class="<?php echo $_SESSION['flash']['icon'] ?>"></i> 
+                      <?php echo $_SESSION['flash']['label']; ?>  
+                    </span>
                     <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
                   </div>
                 <?php endif ?>
@@ -106,7 +109,6 @@ include 'config/function.php';
               <div class="card-body">
                 <form role="form" action="post_login.php" method="post">
                   <input type="hidden" name="redirect" value="<?php echo rawurldecode(@$_GET['r']) ?>">
-                  
                   <label>Email</label>
                   <div class="mb-3">
                     <input type="text" required name="username" class="form-control" placeholder="username" aria-label="username" aria-describedby="email-addon">
@@ -144,7 +146,6 @@ include 'config/function.php';
 </main>
 <footer class="footer py-5">
   <div class="container">
-
     <div class="row">
       <div class="col-8 mx-auto text-center mt-1">
         <p class="mb-0 text-secondary">

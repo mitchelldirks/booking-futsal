@@ -25,6 +25,11 @@ function dateIndonesian($date){
 	$formatTanggal = $hari.", ".$tanggal." ".$bulan." ".$tahun;
 	return $formatTanggal;
 }
+function hari($value)
+{
+	$array_hari = array(1=>'Senin','Selasa','Rabu','Kamis','Jumat', 'Sabtu','Minggu');
+	return $array_hari[$value];
+}
 function bulan($bln)
 {
 	if ($bln==1) {$string = "Januari";}
@@ -107,30 +112,35 @@ function timeElapsed($time_ago) {
 function haversineLabel($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371)
 {
   // convert from degrees to radians
-  $latFrom = deg2rad($latitudeFrom);
-  $lonFrom = deg2rad($longitudeFrom);
-  $latTo = deg2rad($latitudeTo);
-  $lonTo = deg2rad($longitudeTo);
+	$latFrom = deg2rad($latitudeFrom);
+	$lonFrom = deg2rad($longitudeFrom);
+	$latTo = deg2rad($latitudeTo);
+	$lonTo = deg2rad($longitudeTo);
 
-  $latDelta = $latTo - $latFrom;
-  $lonDelta = $lonTo - $lonFrom;
+	$latDelta = $latTo - $latFrom;
+	$lonDelta = $lonTo - $lonFrom;
 
-  $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
-  $string = "2 * arcsin(√(sin<sup>2</sup>((".$latFrom." - ".$latTo.")/2) + cos(".$latFrom.") cos(".$latTo.") sin<sup>2</sup>((".$lonFrom." - ".$lonTo.")/2)) * EarthRadius ".$earthRadius;
-  return $string;
+	$angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+	$string = "2 * arcsin(√(sin<sup>2</sup>((".$latFrom." - ".$latTo.")/2) + cos(".$latFrom.") cos(".$latTo.") sin<sup>2</sup>((".$lonFrom." - ".$lonTo.")/2)) * EarthRadius ".$earthRadius;
+	return $string;
 }
 function haversineGreatCircleDistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = 6371)
 {
   // convert from degrees to radians
-  $latFrom = deg2rad($latitudeFrom);
-  $lonFrom = deg2rad($longitudeFrom);
-  $latTo = deg2rad($latitudeTo);
-  $lonTo = deg2rad($longitudeTo);
+	$latFrom = deg2rad($latitudeFrom);
+	$lonFrom = deg2rad($longitudeFrom);
+	$latTo = deg2rad($latitudeTo);
+	$lonTo = deg2rad($longitudeTo);
 
-  $latDelta = $latTo - $latFrom;
-  $lonDelta = $lonTo - $lonFrom;
+	$latDelta = $latTo - $latFrom;
+	$lonDelta = $lonTo - $lonFrom;
 
-  $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
-  return $angle * $earthRadius;
+	$angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+	return $angle * $earthRadius;
+}
+
+function tf($value)
+{
+	return $value == 1 || $value === true ? 'Yes':'No';
 }
 ?>

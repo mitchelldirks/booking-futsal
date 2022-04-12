@@ -1,6 +1,6 @@
 <?php 
 include '../../config/koneksi.php';
-$user   = $_SESSION['id_user'];
+$user   = $_SESSION['id'];
 $now    = date('Y-m-d H:i:s');
 $table  = 'users';
 $module = $_GET['module'];
