@@ -6,6 +6,7 @@ foreach ($js as $key => $value) { ?>
 }
 ?>
 <script>
+  $(document).ready(function(){
   // var win = navigator.platform.indexOf('Win') > -1;
   // if (win && document.querySelector('#sidenav-scrollbar')) {
   //   var options = {
@@ -14,6 +15,9 @@ foreach ($js as $key => $value) { ?>
   //   Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
   // }
   $('[data-toggle="tooltip"]').tooltip()
+
+  $('.owl-carousel').owlCarousel();
+});
 </script>
 <script type="text/javascript">
   function logout(){

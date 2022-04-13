@@ -2,6 +2,54 @@
 $id = $_GET['id'];
 $detail=mysqli_fetch_array(mysqli_query($conn,"SELECT * from lapangan where id = '".$id."'"));
 ?>
+<style>
+  .image-container {
+    position: relative;
+  }
+  .image {
+    opacity: 1;
+    display: block;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    height: 200px;
+    max-width:200px;
+    max-height:200px;
+    border-radius: 10px;
+  }
+  .image-middle {
+    transition: .5s ease;
+    opacity: 0;
+    /*position: absolute;*/
+    transform: translate(-17%, -100%);
+    -ms-transform: translate(-17%, -100%);
+    text-align: center;
+  }
+  .image-container:hover .image {
+    opacity: 0.3;
+  }
+  .image-container:hover .image-middle {
+    opacity: 1;
+  }
+  .image-text {
+    background-color: #04AA6D;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+  }
+  .btn-add{
+    border-radius: 10px;
+    align-items: middle;
+    color: white;
+    text-align: center;
+  }
+  .btn-add span{
+    align-items: middle;
+    margin-top: 50%;
+  }
+  .btn-add:hover {
+    background-color: black;
+  }
+</style>
 <div class="row">
   <div class="col-sm-12">
     <?php 
@@ -15,15 +63,42 @@ $detail=mysqli_fetch_array(mysqli_query($conn,"SELECT * from lapangan where id =
       </div>
     <?php endif ?>
   </div>
+  <div class="col-sm-12 mb-2">
+    <div class="card">
+      <div class="card-header">
+        <h3>Preview <span class="text-primary"><?php echo $detail['nama'] ?></span></h3>
+      </div>
+      <div class="card-body">
+        <div class="owl-carousel owl-theme mb-3">
+          <?php 
+          $media = mysqli_query($conn,"SELECT * from lapangan_media where id_lapangan = '".$detail['id']."'");
+          foreach ($media as $row): ?>
+            <div class="image-container">
+              <img src="<?php echo $row['path'] ?>" alt="Avatar" class="image">
+              <div class="image-middle">
+                <a href="<?php echo $row['path'] ?>"  data-toggle="tooltip" data-placement="top" title="Preview" target="_blank" class="btn btn-secondary btn-xs"><i class="fa fa-eye"></i></a>
+                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" onclick="swal_delete('<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=drop_img&id_lapangan=<?php echo $detail['id'] ?>&id=<?php echo $row['id']; ?>')"><i class="fa fa-trash"></i></a>
+              </div>
+            </div>
+          <?php endforeach ?>
+          <div class="image-container">
+            <img class="image" style="background:#eee;border: none;" alt="Add more">
+            <div class="image-middle">
+              <a href="?module=<?php echo $_GET['module'] ?>&act=upload&id=<?php echo $detail['id'] ?>" class="btn btn-add"><i class="fa fa-plus"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="col-sm-12">
     <div class="card">
       <form method="POST" action="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=cost">
         <input type="hidden" name="id_lapangan" value="<?php echo $id ?>">
         <div class="card-header">
-          <h1>Detail <?php echo $detail['nama'] ?></h1>
+          <h3>Rincian <?php echo $detail['nama'] ?></h3>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
-
           <div class="table-responsive p-0">
             <table class="table display">
               <thead class="bg-gradient-primary text-white">
@@ -65,7 +140,6 @@ $detail=mysqli_fetch_array(mysqli_query($conn,"SELECT * from lapangan where id =
           <div class="col-sm-12 form-group p-4">
             <button type="submit" class="btn btn-lg btn-primary bg-gradient-primary "><i class="fa fa-save"></i> Save changes</button>
           </div>
-
         </div>
       </form>
     </div>

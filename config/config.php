@@ -15,7 +15,7 @@ $css = array(
 	'assets/css/icofont.css',
 	'assets/css/nucleo-icons.css',
 	'assets/css/nucleo-svg.css',
-	'assets/css/owlcarousel.css',
+	'assets/css/owl.carousel.css',
 	'assets/css/soft-ui-dashboard.min3447.css?v=1.0.5',
 	'assets/css/themify.css',
 );
@@ -29,6 +29,7 @@ $js = array(
 	// 'assets/js/soft-ui-dashboard.min3447.js?v=1.0.5',
 	'https://cdn.jsdelivr.net/npm/sweetalert2@11',
 	'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js',
+	'assets/js/plugins/owl.carousel.js',
 );
 //breadcrumb
 $breadcrumb = array();

@@ -1,5 +1,6 @@
 <?php 
 include '../../config/koneksi.php';
+include '../../config/function.php';
 $user   = $_SESSION['id'];
 $now    = date('Y-m-d H:i:s');
 $table  = 'lapangan';
@@ -34,7 +35,7 @@ if($act == 'create'){
             $cost = mysqli_num_rows(mysqli_query($conn,"SELECT price from lapangan_cost where id_lapangan = '$id' and hari = '$h' and jam = '$j'"));
             if ($cost>0) {
                 $sql="UPDATE lapangan_cost SET 
-                = '".$_POST['price'][$h][$j]."',
+                price = '".$_POST['price'][$h][$j]."',
                 updated_by  = '$user',
                 updated_at  = '$now'
                 WHERE 
@@ -68,5 +69,36 @@ if($act == 'create'){
     $_SESSION['flash']['label']='Penghapusan '.$_GET['module'].' Berhasil';
     $_SESSION['flash']['icon']='fa fa-trash';
     header('Location: ../../media.php?module='.$module);
+}elseif ($act=='upload') {
+    $id = $_GET['id'];
+
+    $dir            = 'images/pitch/';
+    $vdir_upload    = "../../".$dir;
+    $filename       = md5($_FILES["images"]["name"].date('Y-m-d H:i:s')).".jpg";
+    $vfile_upload   = $vdir_upload . $filename;
+    $action         = move_uploaded_file($_FILES["images"]["tmp_name"], $vfile_upload);
+    if ($action) {
+        $sql = "INSERT INTO lapangan_media set 
+        id_lapangan  = '$id',
+        path        = '".$dir.$filename."',
+        created_by   = '$user',
+        created_at   = '$now'
+        ";
+        $query = mysqli_query($conn, $sql);
+    }
+    $_SESSION['flash']['class']='alert alert-success';
+    $_SESSION['flash']['label']='Upload '.$_GET['module'].' Berhasil';
+    $_SESSION['flash']['icon']='fa fa-check';
+    header('Location: ../../media.php?module='.$module.'&act=detail&id='.$id);
+
+}elseif ($act=='drop_img') {
+    $id = $_GET['id_lapangan'];
+
+    $query = mysqli_query($conn, "DELETE FROM lapangan_media WHERE id = '".$_GET['id']."'");
+    $_SESSION['flash']['class']='alert alert-danger';
+    $_SESSION['flash']['label']='Penghapusan '.$_GET['module'].' Berhasil';
+    $_SESSION['flash']['icon']='fa fa-trash';
+    header('Location: ../../media.php?module='.$module.'&act=detail&id='.$id);
+
 }
 ?>
