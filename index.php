@@ -1,5 +1,6 @@
 <?php 
 include 'config/koneksi.php';
+include 'config/config.php';
 include 'config/function.php';
 ?>
 <!DOCTYPE html>
@@ -31,8 +32,8 @@ include 'config/function.php';
       <div class="col-12">
         <nav class="navbar navbar-expand-lg blur blur-rounded top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
           <div class="container-fluid pe-0">
-            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="dashboard.html">
-              Soft UI Dashboard
+            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 ">
+              <?php echo TITLE ?>
             </a>
             <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon mt-2">
@@ -71,12 +72,9 @@ include 'config/function.php';
              <li class="nav-item d-flex align-items-center">
               <span style="padding-right: 12px;">Belum punya akun?</span>
             </li>
-            <li class="nav-item d-flex align-items-center">
-              <a hidden class="btn btn-round btn-sm mb-0 btn-outline-primary me-2" target="_blank" href="https://www.creative-tim.com/builder/soft-ui?ref=navbar-dashboard">Online Builder</a>
-            </li>
             <ul class="navbar-nav d-lg-block d-none">
               <li class="nav-item">
-                <a href="register.php" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-dark">Daftar</a>
+                <a href="registration.php" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-dark">Daftar</a>
               </li>
             </ul>
           </div>
@@ -104,14 +102,14 @@ include 'config/function.php';
                   </div>
                 <?php endif ?>
                 <h3 class="font-weight-bolder text-info text-gradient">Login</h3>
-                <p class="mb-0">Enter your email and password to sign in</p>
+                <p class="mb-0">Masuk untuk melanjutkan</p>
               </div>
               <div class="card-body">
                 <form role="form" action="post_login.php" method="post">
                   <input type="hidden" name="redirect" value="<?php echo rawurldecode(@$_GET['r']) ?>">
-                  <label>Email</label>
+                  <label>Username atau Email</label>
                   <div class="mb-3">
-                    <input type="text" required name="username" class="form-control" placeholder="username" aria-label="username" aria-describedby="email-addon">
+                    <input type="text" required name="username" class="form-control" placeholder="Username atau Email" aria-label="username" aria-describedby="email-addon">
                   </div>
                   <label>Password</label>
                   <div class="mb-3">
@@ -129,7 +127,7 @@ include 'config/function.php';
               <div class="card-footer text-center pt-0 px-lg-2 px-1">
                 <p class="mb-4 text-sm mx-auto">
                   Belum punya akun?
-                  <a href="javascript:;" class="text-info text-gradient font-weight-bold">Daftar</a>
+                  <a href="registration.php" class="text-info text-gradient font-weight-bold">Daftar</a>
                 </p>
               </div>
             </div>

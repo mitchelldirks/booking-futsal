@@ -22,29 +22,31 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Username</th>
-                <th>Nama</th>
-                <th>Email</th>
-                <th>Telp</th>
-                <th>Level</th>
+                <th>Customer</th>
+                <th>Lapangan</th>
+                <th>Tanggal</th>
+                <th>Jam Mulai</th>
+                <th>Jam Selesai</th>
+                <th>Harga</th>
                 <th class="d-print-none"></th>
               </tr>
             </thead>
             <tbody>
               <?php 
               $no=0;
-              $query = mysqli_query($conn,"SELECT * from users order by id desc");
+              $query = mysqli_query($conn,"SELECT * from transaksi order by id desc");
 
               foreach ($query as $row): $no++;?>
                 <tr>
                   <td><?php echo $no ?></td>
-                  <td><?php echo $row['username'] ?></td>
-                  <td><?php echo $row['nama'] ?></td>
-                  <td><?php echo $row['email'] ?></td>
-                  <td><?php echo $row['no_telp'] ?></td>
-                  <td><?php echo ucwords($row['level']) ?></td>
+                  <td><?php echo $row['nama_customer'] ?></td>
+                  <td><?php echo $row['id_lapangan'] ?></td>
+                  <td><?php echo $row['tanggal'] ?></td>
+                  <td><?php echo $row['jam_mulai'] ?></td>
+                  <td><?php echo $row['durasi'] ?></td>
+                  <td><?php echo $row['harga'] ?></td>
                   <td class="d-print-none text-right">
-                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" href="?module=<?php echo $_GET['module'] ?>&act=edit&id=<?php echo $row['id']; ?>"><i class="fa fa-pencil"></i></a>
+                    <!-- <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" href="?module=<?php echo $_GET['module'] ?>&act=edit&id=<?php echo $row['id']; ?>"><i class="fa fa-pencil"></i></a> -->
                     <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" onclick="swal_delete('<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=delete&id=<?php echo $row['id']; ?>')"><i class="fa fa-trash"></i></a>
                   </td>
                 </tr>

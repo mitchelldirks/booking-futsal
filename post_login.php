@@ -2,7 +2,7 @@
 include('config/koneksi.php');
 $user = $_POST['username'];
 $pass = md5($_POST['password']);
-$sql = "SELECT * from users where password='$pass' and username='$user'";
+$sql = "SELECT * from users where password='$pass' and (username='$user' or email='$user')";
 $query = mysqli_query($conn, $sql);
 $data = mysqli_fetch_array($query);
 $row = mysqli_num_rows($query);

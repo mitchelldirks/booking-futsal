@@ -33,14 +33,20 @@
               <?php 
               $no=0;
               $query = mysqli_query($conn,"SELECT * from lapangan order by nama");
-
               foreach ($query as $row): $no++;?>
                 <tr>
                   <td><?php echo $no ?></td>
                   <td><a href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id'] ?>"><b class="text-primary"><?php echo $row['nama'] ?></b></a></td>
                   <td><?php echo $row['tipe'] ?></td>
                   <td><?php echo tf($row['aktif']) ?></td>
-                  <td></td>
+                  <td>
+                    <?php 
+                    $media = mysqli_fetch_array(mysqli_query($conn,"SELECT * from lapangan_media where id_lapangan = '".$row['id']."'"));
+                    ?>
+                    <a href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id'] ?>">
+                      <img src="<?php echo $media['path'] ?>" alt="Avatar" class="image" style="width: 100px;border-radius: 20px;">
+                    </a>
+                  </td>
                   <td class="d-print-none text-right">
                     <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" href="?module=<?php echo $_GET['module'] ?>&act=edit&id=<?php echo $row['id']; ?>"><i class="fa fa-pencil"></i></a>
                     <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" onclick="swal_delete('<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=delete&id=<?php echo $row['id']; ?>')"><i class="fa fa-trash"></i></a>

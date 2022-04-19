@@ -1,6 +1,6 @@
 <?php 
 define(	"TITLE",	"Futsal");
-define(	"BASE_URL",	"http://brainy.monev-unsada.my.id");
+// define(	"BASE_URL",	"http://brainy.monev-unsada.my.id");
 // assets css
 $css = array(
 	'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',

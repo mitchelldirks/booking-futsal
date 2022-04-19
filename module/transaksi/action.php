@@ -6,6 +6,7 @@ $table  = 'users';
 $module = $_GET['module'];
 $act    = $_GET['act'];
 if($act == 'create'){
+    print_r($_POST);exit;
     $sql="INSERT INTO ".$table." (username,password,nama,no_telp,email,alamat,level,aktif,created_by,created_at,updated_by,updated_at)
     VALUES ('".$_POST['username']."', '".md5($_POST['password'])."','".$_POST['nama']."','".$_POST['no_telp']."','".$_POST['email']."','".$_POST['alamat']."','".$_POST['level']."','Y','$user','$now','$user','$now')";
     $query = mysqli_query($conn,$sql);
@@ -76,5 +77,43 @@ if($act == 'create'){
     $_SESSION['flash']['label']='<b>Akun Ditolak dengan alasan:</b> '.$reason;
     $_SESSION['flash']['icon']='fa fa-ban';
     header('Location: ../../media.php?module='.$module);
+}else if($act == 'preview'){
+    if ($_GET['id_lapangan']=='Pilih Lapangan') {
+        $data = array(
+            'response'      => '404',
+            'title'         => 'Error not found',
+            'msg'           => 'Pilih Lapangan terlebih dahulu',
+        );
+        echo json_encode($data);
+        exit;
+    }
+    $lapangan  = mysqli_fetch_array(mysqli_query($conn,"SELECT * from lapangan where id = '".$_GET['id_lapangan']."'"));
+    $jam_mulai = $_GET['jam_mulai'];
+    $durasi    = $_GET['durasi'];
+    $json = json_decode($lapangan['json'],true);
+
+    $price = 0;
+    $calc = $jam_mulai + $durasi - 16;
+    if ($jam_mulai>15) {
+        $price = $json[24]*$durasi;
+    }else{
+        for ($i=$jam_mulai; $i < ($jam_mulai + $durasi); $i++) { 
+            if ($i < 16) {
+                $price += $json[15];
+            }else{
+                $price += $json[24];
+            }   
+        }
+    }
+    $data = array(
+        'response'      => $price == 0 ? '403':'200',
+        'nama_lapangan' => $lapangan['nama'],
+        'durasi'        => $durasi,
+        'harga'         => $price,
+        'title'         => 'Pemesanan lapangan '.$lapangan['nama'],
+        'msg'           => 'Total biaya sewa selama '.$durasi.' jam adalah <b>Rp. '.$price.'</b>',
+    );
+    echo json_encode($data);
+
 }
 ?>

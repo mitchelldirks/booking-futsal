@@ -1,6 +1,7 @@
 <?php 
 $id = $_GET['id'];
 $detail=mysqli_fetch_array(mysqli_query($conn,"SELECT * from lapangan where id = '".$id."'"));
+$json = json_decode($detail['json'],true);
 ?>
 <style>
   .image-container {
@@ -101,6 +102,31 @@ $detail=mysqli_fetch_array(mysqli_query($conn,"SELECT * from lapangan where id =
         <div class="card-body px-0 pt-0 pb-2">
           <div class="table-responsive p-0">
             <table class="table display">
+              <tr>
+                <th class="bg-gradient-primary text-white">06.00 s/d 15.00</th>
+                <td>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <!-- <span class="input-group-text" id="basic-addon15">Rp.</span> -->
+                    </div>
+                    <input type="number" name="price[15]" class="form-control" aria-describedby="basic-addon15" value="<?php echo $json[15] ?>">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th class="bg-gradient-primary text-white">16.00 s/d 24.00</th>
+                <td>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <!-- <span class="input-group-text" id="basic-addon24">Rp.</span> -->
+                    </div>
+                    <input type="number" name="price[24]" aria-describedby="basic-addon24" class="form-control" value="<?php echo $json[24] ?>">
+                  </div>
+                </td>
+              </tr>
+
+            </table>
+            <table class="table display" hidden>
               <thead class="bg-gradient-primary text-white">
                 <tr>
                   <th rowspan="2">Jam</th>
@@ -125,7 +151,7 @@ $detail=mysqli_fetch_array(mysqli_query($conn,"SELECT * from lapangan where id =
                       $cost = @$cost['price'];
                       ?>
                       <td>
-                        <input type="number" name="price[<?php echo $h ?>][<?php echo $j ?>]" class="form-control" value="<?php echo @$cost ?>">
+                        <!-- <input type="number" name="price[<?php echo $h ?>][<?php echo $j ?>]" class="form-control" value="<?php echo @$cost ?>"> -->
                       </td>
                       <?php
                     }
@@ -138,7 +164,7 @@ $detail=mysqli_fetch_array(mysqli_query($conn,"SELECT * from lapangan where id =
             </table>
           </div>
           <div class="col-sm-12 form-group p-4">
-            <button type="submit" class="btn btn-lg btn-primary bg-gradient-primary "><i class="fa fa-save"></i> Save changes</button>
+            <button type="submit" class="btn btn-lg btn-primary bg-gradient-primary pull-right"><i class="fa fa-save"></i> Save changes</button>
           </div>
         </div>
       </form>
