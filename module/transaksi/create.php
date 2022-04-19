@@ -1,5 +1,19 @@
+<style type="text/css">
+  .slot{
+    height: 100px;
+    border-radius: 10px;
+  }
+  .slot-success{
+    color: #fff;
+    background-color: #618833;
+  }
+  .slot-success:hover{
+    background-color: #4d6d28;
+  }
+
+</style>
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-12 mb-3">
     <div class="card">
       <div class="card-header">
         <h5><?php echo ucwords(str_replace("_"," ", $_GET['act'])) ?></h5>
@@ -55,10 +69,39 @@
       </div>
     </div>
   </div>
+  <div class="col-sm-12 mb-3">
+    <div class="card">
+      <div class="card-header">
+        <h5>Available Slot</h5>
+        <div class="form-group">
+          <label>Tanggal</label>
+          <input type="date" id="date_request" onchange="trigger_slot()" class="form-control" value="<?php echo date('Y-m-d') ?>">
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row" id="slot">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
+  function trigger_slot() {
+    request_slot($('#date_request').val())
+  }
+  function request_slot(tanggal=null) {
+    console.log(tanggal)
+    var url = "<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=slot&tanggal="+tanggal
+    $.post(url, function(data) {
+      var data     = JSON.parse(data);
+      $("#slot").html(data.html);
+    });
+  }
+  $(document).ready(function(){
+    request_slot('<?=date("Y-m-d")?>')
+  });
   $("#trx_submit").click(function(){
     var url = "<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=<?php echo $_GET['act'] ?>"
     var urlPreview = "<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=preview"

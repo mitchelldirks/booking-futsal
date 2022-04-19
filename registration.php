@@ -87,11 +87,11 @@ include 'config/function.php';
                   <form role="form" action="register.php" method="post">
                     <label>Nama</label>
                     <div class="mb-3">
-                      <input type="text" required name="name" class="form-control" placeholder="Nama" aria-label="name" aria-describedby="name-addon">
+                      <input type="text" required name="nama" class="form-control" placeholder="Nama" aria-label="name" aria-describedby="name-addon">
                     </div>
                     <label>Telpon</label>
                     <div class="mb-3">
-                      <input type="tel" required name="no_hp" class="form-control" placeholder="Nomor Telpon" aria-label="tel" aria-describedby="tel-addon">
+                      <input type="tel" required name="no_telp" class="form-control" placeholder="Nomor Telpon" aria-label="tel" aria-describedby="tel-addon">
                     </div>
                     <label>Email</label>
                     <div class="mb-3">
@@ -105,9 +105,9 @@ include 'config/function.php';
                     <div class="mb-3">
                       <input type="password" required name="password" id="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
                     </div>
-                    <label>Ulangi Password</label>
+                    <label>Konfirmasi Password</label>
                     <div class="mb-3">
-                      <input type="password" required onchange="checkPasswordMatch()" id="Cpassword" class="form-control" placeholder="Ulangi Password" aria-label="Password" aria-describedby="password-addon">
+                      <input type="password" required onchange="checkPasswordMatch()" id="Cpassword" class="form-control" placeholder="Konfirmasi Password" aria-label="Password" aria-describedby="password-addon">
                       <small id="passwordMatch"></small>
                     </div>
                     <div class="text-center">

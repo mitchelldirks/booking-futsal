@@ -36,14 +36,16 @@
               $no=0;
               $query = mysqli_query($conn,"SELECT * from transaksi order by id desc");
 
-              foreach ($query as $row): $no++;?>
+              foreach ($query as $row): $no++;
+                $end = $row['jam_mulai']+$row['durasi'];
+                ?>
                 <tr>
                   <td><?php echo $no ?></td>
                   <td><?php echo $row['nama_customer'] ?></td>
                   <td><?php echo $row['id_lapangan'] ?></td>
                   <td><?php echo $row['tanggal'] ?></td>
-                  <td><?php echo $row['jam_mulai'] ?></td>
-                  <td><?php echo $row['durasi'] ?></td>
+                  <td><?php echo $row['jam_mulai'].".00" ?></td>
+                  <td><?php echo $end > 24 ? $end - 24 : $end ?>.00</td>
                   <td><?php echo $row['harga'] ?></td>
                   <td class="d-print-none text-right">
                     <!-- <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" href="?module=<?php echo $_GET['module'] ?>&act=edit&id=<?php echo $row['id']; ?>"><i class="fa fa-pencil"></i></a> -->
