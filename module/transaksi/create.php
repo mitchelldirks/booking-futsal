@@ -5,11 +5,12 @@
   }
   .slot-success{
     color: #fff;
-    background-color: #618833;
+    /*background-color: #618833;*/
+    background-image: linear-gradient(310deg,#618833,#4d6d28);
   }
-  .slot-success:hover{
+  /*.slot-success:hover{
     background-color: #4d6d28;
-  }
+  }*/
 
 </style>
 <div class="row">
