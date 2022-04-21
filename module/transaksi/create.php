@@ -2,15 +2,20 @@
   .slot{
     height: 100px;
     border-radius: 10px;
+    transition: 0.5s;
+  }
+  .slot:hover{
+    padding-top: 10px;
+    transition: 0.5s;
   }
   .slot-success{
     color: #fff;
     /*background-color: #618833;*/
-    background-image: linear-gradient(310deg,#618833,#4d6d28);
+    background-image: linear-gradient(310deg,#7928ca,#ff0080);
   }
-  /*.slot-success:hover{
-    background-color: #4d6d28;
-  }*/
+  .slot-success:hover{
+    background-image: linear-gradient(310deg,#863dcf,#e50073);
+  }
 
 </style>
 <div class="row">
@@ -23,10 +28,18 @@
         <div class="col-md-12">
           <form id="myForm" method="POST" action="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=<?php echo $_GET['act'] ?>">
             <div class="row">
-              <div class="col-md-12 col-xs-12 form-group">
-                <label><?php echo ucwords(str_replace("_"," ", "nama_customer")) ?></label>
-                <input required type="text" class="form-control" name="nama_customer" autofocus="true">
-              </div>
+              <?php if ($_SESSION['level']=='customer'): ?>
+                <input type="hidden" name="id_customer" value="<?php echo $_SESSION['id'] ?>">
+                <div class="col-md-12 col-xs-12 form-group">
+                  <label><?php echo ucwords(str_replace("_"," ", "nama_customer")) ?></label>
+                  <input required type="text" class="form-control" name="nama_customer" disabled value="<?php echo $_SESSION['nama'] ?>">
+                </div>
+              <?php else: ?>
+                <div class="col-md-12 col-xs-12 form-group">
+                  <label><?php echo ucwords(str_replace("_"," ", "nama_customer")) ?></label>
+                  <input required type="text" class="form-control" name="nama_customer" autofocus="true">
+                </div>
+              <?php endif ?>
               <div class="col-md-12 col-xs-12 form-group">
                 <label><?php echo ucwords(str_replace("_"," ", "lapangan")) ?></label>
                 <select class="form-control" name="id_lapangan" id="lapangan">
@@ -45,7 +58,7 @@
               </div>
               <div class="col-md-12 col-xs-12 form-group">
                 <label><?php echo ucwords(str_replace("_"," ", "tanggal")) ?></label>
-                <input required type="date" class="form-control" name="tanggal" value="<?php echo date('Y-m-d') ?>">
+                <input required type="date" class="form-control" name="tanggal" id="tanggal" value="<?php echo date('Y-m-d') ?>" min="<?php echo date('Y-m-d') ?>">
               </div>
               <div class="col-md-12 col-xs-12 form-group">
                 <label><?php echo ucwords(str_replace("_"," ", "jam_mulai")) ?></label>
@@ -106,6 +119,7 @@
   $("#trx_submit").click(function(){
     var url = "<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=<?php echo $_GET['act'] ?>"
     var urlPreview = "<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=preview"
+    var tanggal   = $("#tanggal").val()
     var lapangan  = $("#lapangan option:selected").val()
     var jam_mulai = $("#jam_mulai option:selected").val()
     var durasi    = $("#durasi").val()
@@ -118,48 +132,39 @@
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading()
-        // if (lapangan.length==0) {
-        //   Swal.fire({
-        //     icon: 'error',
-        //     title:'Error',
-        //     text: 'Pilih Lapangan terlebih dahulu',
-        //     timer: 3500,
-        //   })
-        // }else{
-
-          $.post(urlPreview+'&id_lapangan='+lapangan+'&jam_mulai='+jam_mulai+'&durasi='+durasi, function(data) {
-            var data     = JSON.parse(data);
-            if (data.response==200) {
-              Swal.fire({
-                title: data.title,
-                html: data.msg,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor:'#cc0c9f',
-                cancelButtonColor: '#ccc',
-                confirmButtonText: 'Buat Pesanan',
-                cancelButtonText:  'Cancel'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  $("#myForm").submit()
-                }
-              })
-            }else if (data.response==404){
-              Swal.fire({
-                icon: 'error',
-                title:data.title,
-                html: data.msg,
-                timer: 3500,
-              })
-            }else{
-              swal.fire({ 
-                title: 'error',
-                icon: 'error',
-                timer: 3500,
-                showConfirmButton: false,
-              });
-            }
-          });
+        $.post(urlPreview+'&tanggal='+tanggal+'&id_lapangan='+lapangan+'&jam_mulai='+jam_mulai+'&durasi='+durasi, function(data) {
+          var data     = JSON.parse(data);
+          if (data.response==200) {
+            Swal.fire({
+              title: data.title,
+              html: data.msg,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor:'#cc0c9f',
+              cancelButtonColor: '#ccc',
+              confirmButtonText: 'Buat Pesanan',
+              cancelButtonText:  'Cancel'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                $("#myForm").submit()
+              }
+            })
+          }else if (data.response==500){
+            Swal.fire({
+              icon: 'error',
+              title:data.title,
+              html: data.msg,
+              timer: 3500,
+            })
+          }else{
+            swal.fire({ 
+              title: 'error',
+              icon: 'error',
+              timer: 3500,
+              showConfirmButton: false,
+            });
+          }
+        });
         // }
       },
     }).then((result) => {

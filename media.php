@@ -1,6 +1,6 @@
 <?php 
-include 'config/config.php';
 include 'config/koneksi.php';
+include 'config/assets.php';
 include 'config/function.php';
 if (isset($_GET['logout']) || !isset($_SESSION['id'])) {
   session_destroy();

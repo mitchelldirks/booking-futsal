@@ -1,6 +1,6 @@
 <?php 
 include 'config/koneksi.php';
-include 'config/config.php';
+include 'config/assets.php';
 include 'config/function.php';
 ?>
 <!DOCTYPE html>
@@ -87,27 +87,27 @@ include 'config/function.php';
                   <form role="form" action="register.php" method="post">
                     <label>Nama</label>
                     <div class="mb-3">
-                      <input type="text" required name="nama" class="form-control" placeholder="Nama" aria-label="name" aria-describedby="name-addon">
+                      <input  type="text" required value="<?php echo @$_SESSION['flash']['credidential']['nama'] ?>" name="nama" class="form-control" placeholder="Nama" aria-label="name" aria-describedby="name-addon">
                     </div>
                     <label>Telpon</label>
                     <div class="mb-3">
-                      <input type="tel" required name="no_telp" class="form-control" placeholder="Nomor Telpon" aria-label="tel" aria-describedby="tel-addon">
+                      <input  type="tel" required value="<?php echo @$_SESSION['flash']['credidential']['no_telp'] ?>" name="no_telp" class="form-control" placeholder="Nomor Telpon" aria-label="tel" aria-describedby="tel-addon">
                     </div>
                     <label>Email</label>
                     <div class="mb-3">
-                      <input type="email" required name="email" class="form-control" placeholder="email" aria-label="email" aria-describedby="email-addon">
+                      <input  type="email" required value="<?php echo @$_SESSION['flash']['credidential']['email'] ?>" name="email" class="form-control" placeholder="email" aria-label="email" aria-describedby="email-addon">
                     </div>
                     <label>Username</label>
                     <div class="mb-3">
-                      <input type="text" required name="username" class="form-control" placeholder="username" aria-label="username" aria-describedby="username-addon">
+                      <input  type="text" required value="<?php echo @$_SESSION['flash']['credidential']['username'] ?>" name="username" class="form-control" placeholder="username" aria-label="username" aria-describedby="username-addon">
                     </div>
                     <label>Password</label>
                     <div class="mb-3">
-                      <input type="password" required name="password" id="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                      <input  type="password" required name="password" minlength="8" id="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
                     </div>
                     <label>Konfirmasi Password</label>
                     <div class="mb-3">
-                      <input type="password" required onchange="checkPasswordMatch()" id="Cpassword" class="form-control" placeholder="Konfirmasi Password" aria-label="Password" aria-describedby="password-addon">
+                      <input  type="password" required onchange="checkPasswordMatch()" id="Cpassword" class="form-control" placeholder="Konfirmasi Password" aria-label="Password" aria-describedby="password-addon">
                       <small id="passwordMatch"></small>
                     </div>
                     <div class="text-center">
@@ -176,6 +176,5 @@ include 'config/function.php';
   </script>
   <script src="assets/js/soft-ui-dashboard.min3447.js?v=1.0.5"></script>
 </body>
-<!-- Mirrored from demos.creative-tim.com/soft-ui-dashboard/pages/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 12 Apr 2022 04:53:59 GMT -->
 </html>
 <?php unset($_SESSION['flash']) ?>

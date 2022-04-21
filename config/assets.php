@@ -30,6 +30,7 @@ $js = array(
 	'https://cdn.jsdelivr.net/npm/sweetalert2@11',
 	'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js',
 	'assets/js/plugins/owl.carousel.js',
+	'//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js',
 );
 //breadcrumb
 $breadcrumb = array();

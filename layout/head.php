@@ -7,7 +7,8 @@
 
 <?php 
 
-foreach ($css as $key => $value) { ?>
+foreach ($css as $key => $value) { 
+  ?>
   <link href="<?= $value ?>" rel="stylesheet"/>
   <?php
 }

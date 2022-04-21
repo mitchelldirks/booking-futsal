@@ -1,6 +1,6 @@
 <?php 
 include 'config/koneksi.php';
-include 'config/config.php';
+include 'config/assets.php';
 include 'config/function.php';
 ?>
 <!DOCTYPE html>
@@ -170,6 +170,5 @@ include 'config/function.php';
 </script>
 <script src="assets/js/soft-ui-dashboard.min3447.js?v=1.0.5"></script>
 </body>
-<!-- Mirrored from demos.creative-tim.com/soft-ui-dashboard/pages/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 12 Apr 2022 04:53:59 GMT -->
 </html>
 <?php unset($_SESSION['flash']) ?>

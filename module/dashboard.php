@@ -1,16 +1,28 @@
 <div class="row">
-  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+  <div class="col-md-12 mb-xl-0">
+    <h4>Stats</h4>
+  </div>
+  <div class="col-md-6 col-xs-6 mb-xl-0 mb-2">
     <div class="card">
       <div class="card-body p-3">
         <div class="row">
           <div class="col-8">
-            <div class="numbers">
-              <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Money</p>
-              <h5 class="font-weight-bolder mb-0">
-                $53,000
-                <span class="text-success text-sm font-weight-bolder">+55%</span>
-              </h5>
-            </div>
+            <?php if ($_SESSION['level']!=='customer'): ?>
+              <a href="?module=laporan&act=detail&timeline=harian&time=<?=date('Y-m-d')?>">
+              <?php endif ?>
+              <div class="numbers">
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Pemasukan Hari ini</p>
+                <h5 class="font-weight-bolder mb-0">
+                  <?php 
+                  $res = mysqli_fetch_array(mysqli_query($conn,"SELECT sum(harga) as total from transaksi where tanggal = '".date('Y-m-d')."'"));
+                  echo "Rp. ".number_format($res['total']);
+                  ?>
+                  <!-- <span class="text-success text-sm font-weight-bolder">+55%</span> -->
+                </h5>
+              </div>
+              <?php if ($_SESSION['level']!=='customer'): ?>
+              </a>
+            <?php endif ?>
           </div>
           <div class="col-4 text-end">
             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
@@ -21,29 +33,39 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+  <div class="col-md-6 col-xs-6 mb-xl-0 mb-2">
     <div class="card">
       <div class="card-body p-3">
         <div class="row">
           <div class="col-8">
-            <div class="numbers">
-              <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Users</p>
-              <h5 class="font-weight-bolder mb-0">
-                2,300
-                <span class="text-success text-sm font-weight-bolder">+3%</span>
-              </h5>
-            </div>
+            <?php if ($_SESSION['level']!=='customer'): ?>
+              <a href="?module=laporan&act=detail&timeline=bulanan&time=<?=date('Y-m')?>">
+              <?php endif ?>
+              <div class="numbers">
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">Pemasukan Bulan ini</p>
+                <h5 class="font-weight-bolder mb-0">
+                  <?php 
+                  $res = mysqli_fetch_array(mysqli_query($conn,"SELECT sum(harga) as total from transaksi where tanggal like '".date('Y-m')."%'"));
+                  echo "Rp. ".number_format($res['total']);
+                  ?>
+                  <!-- <span class="text-success text-sm font-weight-bolder">+3%</span> -->
+                </h5>
+              </div>
+              <?php if ($_SESSION['level']!=='customer'): ?>
+              </a>
+            <?php endif ?>
           </div>
           <div class="col-4 text-end">
             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-              <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+              <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+              <!-- <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i> -->
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+  <!-- <div class="col-xl-3 col-sm-6 mb-xl-0 mb-2">
     <div class="card">
       <div class="card-body p-3">
         <div class="row">
@@ -86,10 +108,195 @@
         </div>
       </div>
     </div>
+  </div> -->
+  <div class="col-md-12 mb-xl-0 ">
+    <h4>Menu</h4>
   </div>
+  <?php if ($_SESSION['level']=='admin'): ?>
+    <div class="col-md-3 col-xs-12 mb-xl-2 mb-2">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <a href="?module=transaksi">
+                <div class="numbers">
+                  <h5 class="font-weight-bolder mb-0 pt-2">
+                    Transaksi
+                  </h5>
+                </div>
+              </a>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                <i class="ni ni-shop text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xs-12 mb-xl-2 mb-2">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <a href="?module=laporan">
+                <div class="numbers">
+                  <h5 class="font-weight-bolder mb-0 pt-2">
+                    Laporan
+                  </h5>
+                </div>
+              </a>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xs-12 mb-xl-2 mb-2">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <a href="?module=lapangan">
+                <div class="numbers">
+                  <h5 class="font-weight-bolder mb-0 pt-2">
+                    Master Lapangan
+                  </h5>
+                </div>
+              </a>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                <i class="ni ni-single-copy-04 text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-xs-12 mb-xl-2 mb-2">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <a href="?module=user">
+                <div class="numbers">
+                  <h5 class="font-weight-bolder mb-0 pt-2">
+                    Master User
+                  </h5>
+                </div>
+              </a>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                <i class="ni ni-single-02 text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endif ?>
+  <?php if ($_SESSION['level']=='customer'): ?>
+    <div class="col-md-4 col-xs-12 mb-xl-2 mb-2">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <a href="?module=transaksi&act=create">
+                <div class="numbers">
+                  <h5 class="font-weight-bolder mb-0 pt-2">
+                    Buat Pesanan
+                  </h5>
+                </div>
+              </a>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                <i class="ni ni-app text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-xs-12 mb-xl-2 mb-2">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <a href="?module=transaksi&act=history">
+                <div class="numbers">
+                  <h5 class="font-weight-bolder mb-0 pt-2">
+                    Pesanan Saya
+                  </h5>
+                </div>
+              </a>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                <i class="ni ni-book-bookmark text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-xs-12 mb-xl-2 mb-2">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <a href="?module=user&act=edit&id=<?php echo $_SESSION['id'] ?>">
+                <div class="numbers">
+                  <h5 class="font-weight-bolder mb-0 pt-2">
+                    Profil
+                  </h5>
+                </div>
+              </a>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                <i class="ni ni-single-02 text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endif ?>
+  <?php if ($_SESSION['level']=='owner'): ?>
+    <div class="col-md-12 col-xs-12 mb-xl-2 mb-2">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <a href="?module=laporan">
+                <div class="numbers">
+                  <h5 class="font-weight-bolder mb-0 pt-2">
+                    Laporan
+                  </h5>
+                </div>
+              </a>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endif ?>
 </div>
 <div class="row mt-4">
-  <div class="col-lg-7 mb-lg-0 mb-4">
+  <div class="col-lg-7 mb-lg-0 mb-2">
     <div class="card">
       <div class="card-body p-3">
         <div class="row">
@@ -121,7 +328,7 @@
       <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-image: url('assets/img/ivancik.jpg');">
         <span class="mask bg-gradient-dark"></span>
         <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
-          <h5 class="text-white font-weight-bolder mb-4 pt-2">Work with the rockets</h5>
+          <h5 class="text-white font-weight-bolder mb-2 pt-2">Work with the rockets</h5>
           <p class="text-white">Wealth creation is an evolutionarily recent positive-sum game. It is all about who take the opportunity first.</p>
           <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
             Read More
@@ -131,9 +338,14 @@
       </div>
     </div>
   </div>
+  <div class="col-md-12 mt-2">
+    <div class="card h-100 p-3">
+      <a class="btn bg-gradient-primary btn-sm mb-3 " onclick="logout()">Logout</a>
+    </div>
+  </div>
 </div>
-<div class="row mt-4">
-  <div class="col-lg-5 mb-lg-0 mb-4">
+<!-- <div class="row mt-4">
+  <div class="col-lg-5 mb-lg-0 mb-2">
     <div class="card z-index-2">
       <div class="card-body p-3">
         <div class="bg-gradient-dark border-radius-lg py-3 pe-1 mb-3">
@@ -267,7 +479,7 @@
   </div>
 </div>
 <div class="row my-4">
-  <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+  <div class="col-lg-8 col-md-6 mb-md-0 mb-2">
     <div class="card">
       <div class="card-header pb-0">
         <div class="row">
@@ -610,4 +822,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

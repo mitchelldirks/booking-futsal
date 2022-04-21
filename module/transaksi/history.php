@@ -15,7 +15,6 @@
     <div class="card">
       <div class="card-header">
         <a class="btn btn-primary" href="?module=<?php echo $_GET['module'];?>&act=create">Tambah <?php echo ucwords($_GET['module']) ?></a>
-        <p>Transaksi lampau tampil di menu laporan</p>
       </div>
       <div class="card-body px-0 pt-0 pb-2">
         <div class="table-responsive p-0">
@@ -24,7 +23,6 @@
               <tr>
                 <th>No</th>
                 <th>Kode Transaksi</th>
-
                 <th>Customer</th>
                 <th>Lapangan</th>
                 <th>Tanggal</th>
@@ -37,12 +35,11 @@
             <tbody>
               <?php 
               $no=0;
-              $query = mysqli_query($conn,"SELECT * from transaksi where tanggal >= '".date('Y-m-d')."' order by id desc");
-
+              $query = mysqli_query($conn,"SELECT * from transaksi where id_customer = '".$_SESSION['id']."' order by id desc");
               foreach ($query as $row): $no++;
                 $end = $row['jam_mulai']+$row['durasi'];
                 $lapangan = mysqli_fetch_array(mysqli_query($conn,"SELECT * from lapangan where id = '".$row['id_lapangan']."'"));
-
+                
                 ?>
                 <tr>
                   <td><?php echo $no ?></td>
@@ -55,14 +52,22 @@
                   <td><?php echo $row['harga'] ?></td>
                   <td class="d-print-none text-right">
                     <!-- <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" href="?module=<?php echo $_GET['module'] ?>&act=edit&id=<?php echo $row['id']; ?>"><i class="fa fa-pencil"></i></a> -->
-                    <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" onclick="swal_delete('<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=delete&id=<?php echo $row['id']; ?>')"><i class="fa fa-trash"></i></a>
-                  </td>
-                </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
-        </div>
+                    <a class="btn btn-primary btn-xs" href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['kode_transaksi'] ?>">
+                      <i class="fa fa-eye"></i>
+                    </a>
+
+                    <?php 
+                    if (date('Y-m-d') <= $row['tanggal'] && date('H') < $row['jam_mulai']): ?>
+                      <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" onclick="swal_delete('<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=delete&id=<?php echo $row['id']; ?>')"><i class="fa fa-trash"></i></a>
+                    <?php 
+                  endif ?>
+                </td>
+              </tr>
+            <?php endforeach ?>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+</div>
 </div>
